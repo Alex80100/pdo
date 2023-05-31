@@ -12,15 +12,15 @@ class Patient
     private string $_mail;
 
     // Contructeur de la Class Patient
-    public function __construct(int $id, string $lastname, string $firstname, string $birthdate, string $phone, string $mail)
-    {
-        $this->setId($id);
-        $this->setlastname($lastname);
-        $this->setFirstname($firstname);
-        $this->setBirthdate($birthdate);
-        $this->setPhone($phone);
-        $this->setMail($mail);
-    }
+    // public function __construct(int $id, string $lastname, string $firstname, string $birthdate, string $phone, string $mail)
+    // {
+    //     $this->setId($id);
+    //     $this->setLastname($lastname);
+    //     $this->setFirstname($firstname);
+    //     $this->setBirthdate($birthdate);
+    //     $this->setPhone($phone);
+    //     $this->setMail($mail);
+    // }
 
     // 'SET' ET 'GET' DE l'ID
     public function setId(int $id): void
@@ -96,5 +96,9 @@ class Patient
     public function getMail(): string
     {
         return $this->_mail;
+    }
+// Ajouter le patient a la base de données. 
+    public function addPatient(){
+
     }
 }

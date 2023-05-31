@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-center">
             <h1>Formulaire d'inscription</h1>
         </div>
-        <form method="POST" enctype="multipart/form-data" autocomplete="on" novalidate>
+        <form method="POST" enctype="multipart/form-data" autocomplete="on">
             <!-- ========== LASTNAME ========== -->
             <div class="mb-3">
                 <label for="lastname" class="form-label">Nom de Famille : </label>
@@ -22,7 +22,7 @@
                 class="form-control" 
                 name ="firstname"
                 required 
-                pattern=<?php echo $regex['regexName'] ?>
+                pattern= "<?php echo $regex['regexName'] ?>"
                 placeholder="Prénom">
                 <small class="form-text error text-danger"><?= $error['firstname'] ?? '' ?></small>
             </div>
@@ -32,6 +32,8 @@
                 <input type="date" 
                 class="form-control" 
                 name="birthdate" 
+                min="1890-01-01"
+                max="<?php date('Y-m-d')?>"
                 required>
                 <small class="form-text error text-danger"><?= $error['birthdate'] ?? '' ?></small>
 
@@ -39,11 +41,10 @@
             <!-- ========== PHONE ========== -->
             <div class="mb-3">
                 <label for="phone" class="form-label">Téléphone : </label>
-                <input type="text" 
+                <input type="tel" 
                 class="form-control" 
                 name="phone"
-                pattern= <?= $regex['regexPhone'] ?>
-                required 
+                pattern= "<?= $regex['regexPhone'] ?>"
                 placeholder="Numéro de téléphone">
                 <small class="form-text error text-danger"><?= $error['phone'] ?? '' ?></small>
             </div>

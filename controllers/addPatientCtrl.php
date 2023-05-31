@@ -1,12 +1,13 @@
 <?php
-require_once __DIR__ . '/../models/regex.php';
+require_once __DIR__. '/../models/regex.php';
+require_once __DIR__. '/../helpers/connect.php';
 
 
 // Verification des saisies dans le formulaire
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // Nettoyage des données saisie dans l'input LASTNAME
-    $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_SPECIAL_CHARS);
+    $lastname = trim(filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_SPECIAL_CHARS));
     if (empty($lastname)) {
         $error['lastname'] = "Nom de Famille obligatoire";
     } else {
@@ -17,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Nettoyage des données saisie dans l'input FIRSTNAME
-    $firstname = filter_input(INPUT_POST, 'firstname',FILTER_SANITIZE_SPECIAL_CHARS);
+    $firstname = trim(filter_input(INPUT_POST, 'firstname',FILTER_SANITIZE_SPECIAL_CHARS));
 
     if (empty($firstname)) {
         $error['firstname'] = "Prénom obligatoire !";
@@ -29,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     
     // Nettoyage des données saisie dans l'input DATE DE NAISSANCE
-    $birthdate = filter_input(INPUT_POST,'birthdate',FILTER_SANITIZE_SPECIAL_CHARS);
+    $birthdate = trim(filter_input(INPUT_POST,'birthdate',FILTER_SANITIZE_SPECIAL_CHARS));
 
     if (empty($birthdate)) {
         $error['birthdate'] = "Date de naissance obligatoire !";
@@ -49,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
     // Nettoyage des données saisie dans l'input PHONE
-    $phone = filter_input(INPUT_POST,'phone',FILTER_SANITIZE_NUMBER_INT);
+    $phone = trim(filter_input(INPUT_POST,'phone',FILTER_SANITIZE_NUMBER_INT));
     if (empty($phone)) {
         $error['phone'] = "Numéro de téléphone obligatoire !";
     } else {
@@ -60,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
 
         // Nettoyage des données saisie dans l'input EMAIL
-    $email = filter_input(INPUT_POST,'email',FILTER_SANITIZE_EMAIL);
+    $email = trim(filter_input(INPUT_POST,'email',FILTER_SANITIZE_EMAIL));
     if (empty($email)) {
         $error['email'] = "L\'email n'est pas valide !" ;
     } else { 
@@ -71,8 +72,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
     
+// Si il n'y a pas d'erreur dans la saisie du formulaire 
+// On envoie les informations dans la class Patient
+    if (isset($error)) {
+        $patient = new Patient();
+        $patient -> setLastname($lastname);
+        $patient -> setFirstname($firstname);
+        $patient -> setBirthdate($birthdate);
+        $patient -> setPhone($phone);
+        $patient -> setMail($email);
+    }
 }
 
 include __DIR__ . '/../views/templates/header.php';
-include __DIR__ . '/../views/patients/adPatient.php';
+include __DIR__ . '/../views/patients/addPatient.php';
 include __DIR__ . '/../views/templates/footer.php';
