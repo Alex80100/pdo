@@ -1,6 +1,7 @@
 <?php
+
 require_once __DIR__. '/../models/regex.php';
-require_once __DIR__. '/../helpers/connect.php';
+require_once __DIR__. '/../models/Patient.php';
 
 
 // Verification des saisies dans le formulaire
@@ -71,17 +72,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error["email"] = "L'adresse email n'est pas au bon format !";
         }
     }
-    
+
 // Si il n'y a pas d'erreur dans la saisie du formulaire 
 // On envoie les informations dans la class Patient
-    if (isset($error)) {
+    if (empty($error)) {
         $patient = new Patient();
-        $patient -> setLastname($lastname);
-        $patient -> setFirstname($firstname);
-        $patient -> setBirthdate($birthdate);
-        $patient -> setPhone($phone);
-        $patient -> setMail($email);
+        $patient->setLastname($lastname);
+        $patient->setFirstname($firstname);
+        $patient->setBirthdate($birthdate);
+        $patient->setPhone($phone);
+        $patient->setMail($email);
+        $patient->add();
     }
+
+
 }
 
 include __DIR__ . '/../views/templates/header.php';
