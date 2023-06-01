@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../config/connect.php';
+require_once __DIR__ . '/../helpers/connect.php';
 
 class Patient
 {
@@ -101,4 +101,22 @@ class Patient
     public function addPatient(){
 
     }
+
+    public function add (){
+        $pdo = connect();
+        $sqlQuery = 'INSERT INTO `patients` (lastname, firstname, birthdate, phone, mail)
+        VALUES (:lastname,:firstname,:birthdate,:phone,:mail);';
+        $sth = $pdo->prepare($sqlQuery);
+        $sth->bindValue(':lastname',$this->_lastname);
+        $sth->bindValue(':firstname',$this->_firstname);
+        $sth->bindValue(':birthdate',$this->_birthdate);
+        $sth->bindValue(':phone',$this->_phone);
+        $sth->bindValue(':mail',$this->_mail);
+        $sth->execute();
+    }
+
+//     public function clientDetails(){
+//         $pdo = connect();
+//         $sqlQuery = 'SELECT `patients` AS `lastname` `firstname` `birthdate` `phone` `mail`'
+//     }
 }
