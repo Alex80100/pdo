@@ -1,27 +1,27 @@
 <div class="container">
-    <div class="d-flex justify-content-center">
-        <h1>Liste des clients</h1>
+    <div class="d-flex justify-content-center text-light">
+        <h1 class="mb-10">Liste des clients</h1>
     </div>
 
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Nom de Famille</th>
-                <th>Prénom</th>
-                <th>Date de Naissance</th>
-                <th>Phone</th>
-                <th>Mail</th>
+                <th><p class="txtTr"> Nom de Famille </p></th>
+                <th><p class="txtTr"> Prénom </p></th>
+                <th><p class="txtTr"> Date de Naissance </p></th>
+                <th><p class="txtTr"> Phone </p></th>
+                <th><p class="txtTr"> Mail </p></th>
             </tr>
         </thead>
         <tbody>
 
             <?php foreach ($displayPatients as $displayPatient) { ?>
                 <tr>
-                    <th> <?= $displayPatient->lastname ?> </th>
-                    <th> <?= $displayPatient->firstname ?> </th>
-                    <th> <?= $displayPatient->birthdate ?> </th>
-                    <th> <?= $displayPatient->phone ?> </th>
-                    <th> <?= $displayPatient->mail ?> </th>
+                    <th> <?= '<p class="txtTr">'. $displayPatient->lastname .'</p>' ?> </th>
+                    <th> <?= '<p class="txtTr">'. $displayPatient->firstname .'</p>' ?> </th>
+                    <th> <?= '<p class="txtTr">'. $displayPatient->birthdate .'</p>' ?> </th>
+                    <th> <?= '<p class="txtTr">'. $displayPatient->phone .'</p>' ?> </th>
+                    <th> <?= '<p class="txtTr">'. $displayPatient->mail .'</p>' ?> </th>
                 </tr>
             <?php } ?>
         </tbody>
