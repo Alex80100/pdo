@@ -71,6 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!$testEmail) {
             $error["email"] = "L'adresse email n'est pas au bon format !";
         }
+
+        
     }
 
 // Si il n'y a pas d'erreur dans la saisie du formulaire 
@@ -82,7 +84,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $patient->setBirthdate($birthdate);
         $patient->setPhone($phone);
         $patient->setMail($email);
-        $patient->add();
+
+        $patientExist = $patient->patientExist();
+        if ($patientExist == TRUE) {
+            echo '<small class="green"> Le patient a été ajouté à la base de donnée </small>';
+            $patient->add();
+
+        } else {
+            echo '<small class="red"> Le patient est déja en base de donnée </small>';
+        }
     }
 
 

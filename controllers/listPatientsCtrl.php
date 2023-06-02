@@ -2,7 +2,8 @@
 
 require_once __DIR__. '/../models/Patient.php';
 
-$patient = new Patient();
+$display = new Patient;
+$displayPatients = Patient::patientDisplay();
 
 
 include __DIR__. '/../views/templates/header.php';

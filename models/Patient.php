@@ -98,9 +98,6 @@ class Patient
         return $this->_mail;
     }
 // Ajouter le patient a la base de données. 
-    public function addPatient(){
-
-    }
 
     public function add (){
         $pdo = connect();
@@ -115,8 +112,36 @@ class Patient
         $sth->execute();
     }
 
-//     public function clientDetails(){
-//         $pdo = connect();
-//         $sqlQuery = 'SELECT `patients` AS `lastname` `firstname` `birthdate` `phone` `mail`'
-//     }
+    // Verifier si un patient est déjà en base avec le mail 
+    
+    public function patientExist()
+    {
+        $pdo = connect();
+
+        $sqlQuery = 'SELECT `mail`
+        FROM `patients`
+        WHERE mail = :mail;';
+
+        $sth = $pdo->prepare($sqlQuery);
+        $sth->bindValue(':mail', $this->_mail);
+
+        $sth->execute();
+        $exist = $sth->fetchAll();
+        $exist=count($exist);
+        if ($exist == 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+// message de confirmation d'ajout de patient en BDD 
+
+    public static function patientDisplay(){
+        $pdo = connect();
+        $sqlQuery = 'SELECT * FROM `patients`;';
+        $sth = $pdo->query($sqlQuery);
+        $displayPatients = $sth->fetchAll();
+        return $displayPatients;
+    }
 }

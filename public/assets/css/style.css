@@ -8,13 +8,46 @@ nav{
     height: 10%;
 }
 
-
+main{
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .div-form{
     width: 100%;
     height: 90%;
+    background-image: url('/public/assets/img/bg-hopital2.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 .error{
     color: red;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+.red{
+    color: red;
+    font-weight: 700;
+}
+
+.green{
+    color: green;
+    font-weight: 700;
+}
+
+.divContainerBtn{
+    width: 100%;
+    height: 20%;
+}
+
+.divBtn{
+    width: 70%;
 }

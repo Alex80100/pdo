@@ -1,6 +1,6 @@
 <div class="container div-form">
     <div class="row">
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center text-primary-emphasis ">
             <h1>Formulaire d'inscription</h1>
         </div>
         <form method="POST" enctype="multipart/form-data" autocomplete="on">
@@ -59,7 +59,11 @@
                 <small class="form-text error text-danger"><?= $error['email'] ?? '' ?></small>
             </div>
             <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary border-0 bg-success col-6">ENVOYER</button>
+                <?= $patientExist ?? '' ?> <!-- Phrase confirmation si le patient existe ou non  -->
+            </div>
+            <div class="divContainerBtn d-flex justify-content-center align-items-center">
+                <div class="divBtn d-flex justify-content-center"><button type="button" class="btn btn-primary border-0 bg-primary-emphasis col-11"><a href="/index.php/?action=exercice2">Liste des patients</a></button></div>
+                <div class="divBtn d-flex justify-content-center"><button type="submit" class="btn btn-primary border-0 bg-success col-11 me-5">ENVOYER</button></div>
             </div>
         </form>
     </div>
