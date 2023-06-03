@@ -6,7 +6,7 @@
         '/' => '/controllers/addPatientCtrl.php',
         'add' => '/controllers/addPatientCtrl.php',
         'exercice2' => '/controllers/listPatientsCtrl.php',
-        // 'exercice3' => '/',
+        'exercice3' => '/controllers/profilPatientCtrl.php',
         // 'exercice4' => '',
         // 'exercice5' => '',
         // 'exercice6' => '',

@@ -4,15 +4,15 @@ require_once __DIR__ . '/../helpers/connect.php';
 
 class Patient
 {
-    private int $_id;
-    private string $_lastname;
-    private string $_firstname;
-    private string $_birthdate;
-    private string $_phone;
-    private string $_mail;
+    private int $id;
+    private string $lastname;
+    private string $firstname;
+    private string $birthdate;
+    private string $phone;
+    private string $mail;
 
     // Contructeur de la Class Patient
-    // public function __construct(int $id, string $lastname, string $firstname, string $birthdate, string $phone, string $mail)
+    // public function construct(int $id, string $lastname, string $firstname, string $birthdate, string $phone, string $mail)
     // {
     //     $this->setId($id);
     //     $this->setLastname($lastname);
@@ -25,77 +25,77 @@ class Patient
     // 'SET' ET 'GET' DE l'ID
     public function setId(int $id): void
     {
-        $this->_id = $id;
+        $this->id = $id;
     }
 
 
     public function getId(): int
     {
-        return $this->_id;
+        return $this->id;
     }
 
     // 'SET' ET 'GET' DE LASTNAME
     public function setLastname(string $lastname): void
     {
-        $this->_lastname = $lastname;
+        $this->lastname = $lastname;
     }
 
 
     public function getLastname(): string
     {
-        return $this->_lastname;
+        return $this->lastname;
     }
 
     // 'SET' ET 'GET' DE FIRSTNAME
 
     public function setFirstname(string $firstname): void
     {
-        $this->_firstname = $firstname;
+        $this->firstname = $firstname;
     }
 
 
     public function getFirstname(): string
     {
-        return $this->_firstname;
+        return $this->firstname;
     }
 
     // 'SET' ET 'GET' DE BIRTHDATE
 
     public function setBirthdate(string $birthdate): void
     {
-        $this->_birthdate = $birthdate;
+        $this->birthdate = $birthdate;
     }
 
 
     public function getBirthdate(): string
     {
-        return $this->_birthdate;
+        return $this->birthdate;
     }
 
     // 'SET' ET 'GET' DE PHONE
 
     public function setPhone(string $phone): void
     {
-        $this->_phone = $phone;
+        $this->phone = $phone;
     }
 
 
     public function getPhone(): string
     {
-        return $this->_phone;
+        return $this->phone;
     }
 
     // 'SET' ET 'GET' DE MAIL
 
     public function setMail(string $mail): void
     {
-        $this->_mail = $mail;
+        $this->mail = $mail;
     }
 
 
     public function getMail(): string
     {
-        return $this->_mail;
+        return $this->mail;
     }
 // Ajouter le patient a la base de données. 
 
@@ -104,11 +104,11 @@ class Patient
         $sqlQuery = 'INSERT INTO `patients` (lastname, firstname, birthdate, phone, mail)
         VALUES (:lastname,:firstname,:birthdate,:phone,:mail);';
         $sth = $pdo->prepare($sqlQuery);
-        $sth->bindValue(':lastname',$this->_lastname);
-        $sth->bindValue(':firstname',$this->_firstname);
-        $sth->bindValue(':birthdate',$this->_birthdate);
-        $sth->bindValue(':phone',$this->_phone);
-        $sth->bindValue(':mail',$this->_mail);
+        $sth->bindValue(':lastname',$this->lastname);
+        $sth->bindValue(':firstname',$this->firstname);
+        $sth->bindValue(':birthdate',$this->birthdate);
+        $sth->bindValue(':phone',$this->phone);
+        $sth->bindValue(':mail',$this->mail);
         $sth->execute();
     }
 
@@ -123,7 +123,7 @@ class Patient
         WHERE mail = :mail;';
 
         $sth = $pdo->prepare($sqlQuery);
-        $sth->bindValue(':mail', $this->_mail);
+        $sth->bindValue(':mail', $this->mail);
 
         $sth->execute();
         $exist = $sth->fetchAll();
@@ -135,13 +135,27 @@ class Patient
         }
     }
 
-// message de confirmation d'ajout de patient en BDD 
+// Afficher les clients en BDD 
 
-    public static function patientDisplay(){
+    public static function patientsDisplay(){
         $pdo = connect();
         $sqlQuery = 'SELECT * FROM `patients`;';
         $sth = $pdo->query($sqlQuery);
         $displayPatients = $sth->fetchAll();
         return $displayPatients;
+    }
+
+// Afficher un profil client 
+    public static function profilDisplay($id){
+        $pdo = connect();
+        $sqlQuery = 'SELECT `lastname` FROM `patients`
+        WHERE id = :id ;';
+        $sth = $pdo->prepare($sqlQuery);
+        $sth->bindValue(':id',$id);
+        $sth->setFetchMode(PDO::FETCH_CLASS,"Patient");
+        $sth->execute();
+        $displayProfil = $sth->fetch();
+        var_dump($displayProfil);
+        return $displayProfil;
     }
 }

@@ -33,6 +33,9 @@
                             <li class="nav-item">
                                 <a class="nav-link active" href="/index.php/?action=exercice2">Exercice 2 : list Patients</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/index.php/?action=exercice3">Exercice 3 : Profil Patient</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
