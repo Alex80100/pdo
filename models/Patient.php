@@ -128,6 +128,7 @@ class Patient
         $sth->execute();
         $exist = $sth->fetchAll();
         $exist=count($exist);
+
         if ($exist == 0) {
             return TRUE;
         } else {
@@ -146,16 +147,44 @@ class Patient
     }
 
 // Afficher un profil client 
-    public static function profilDisplay($id){
+    public static function get(int $id){
         $pdo = connect();
-        $sqlQuery = 'SELECT `lastname` FROM `patients`
+        $sqlQuery = 'SELECT `id`, `lastname`, `firstname`, `birthdate`, `phone`, `mail` FROM `patients`
         WHERE id = :id ;';
         $sth = $pdo->prepare($sqlQuery);
         $sth->bindValue(':id',$id);
         $sth->setFetchMode(PDO::FETCH_CLASS,"Patient");
         $sth->execute();
         $displayProfil = $sth->fetch();
-        var_dump($displayProfil);
         return $displayProfil;
     }
+
+    // Modifier profil 
+
+
+
+    public function modify() : bool 
+    {
+        $pdo = connect();
+        $sql = 'UPDATE `patients` 
+        SET `id` = :id,
+        `lastname` = :lastname,
+        `firstname` = :firstname, 
+        `birthdate` = :birthdate, 
+        `phone` = :phone, 
+        `mail` = :mail 
+        WHERE id = :id;';
+        $sth = $pdo->prepare($sql);
+        $sth->bindValue(':id',$this->id);
+        $sth->bindValue(':lastname',$this->lastname);
+        $sth->bindValue(':firstname',$this->firstname);
+        $sth->bindValue(':birthdate',$this->birthdate);
+        $sth->bindValue(':mail',$this->mail);
+        $sth->bindValue(':phone',$this->phone);
+        $sth->execute();
+        $modifyPatient = $sth->fetch();
+        return $modifyPatient; 
+    }
+
+
 }

@@ -2,7 +2,7 @@
 
 require_once __DIR__. '/../models/Patient.php';
 
-$display = new Patient;
+
 $displayPatients = Patient::patientsDisplay();
 
 
