@@ -84,8 +84,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $patient->setBirthdate($birthdate);
         $patient->setPhone($phone);
         $patient->setMail($email);
-
         $patientExist = $patient->patientExist();
+        
         if ($patientExist == TRUE) {
             echo '<small class="green"> Le patient a été ajouté à la base de donnée </small>';
             $patient->add();

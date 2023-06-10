@@ -11,9 +11,9 @@
         'exercice2' => '/controllers/listPatientsCtrl.php',
         'exercice3' => '/controllers/profilPatientCtrl.php',
         'exercice4' => '/controllers/modify.php',
-        // 'exercice5' => '',
-        // 'exercice6' => '',
-        // 'exercice7' => '',
+        'exercice5' => '/controllers/addAppointmentCtrl.php',
+        'exercice6' => '/controllers/listAppointmentsCtrl.php',
+        'exercice7' => '/controllers/modifyAppointmentCtrl.php',
         default => '/controllers/404Ctrl.php'
     };
 

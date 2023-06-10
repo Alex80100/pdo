@@ -160,9 +160,7 @@ class Patient
     }
 
     // Modifier profil 
-
-
-
+    
     public function modify() : bool 
     {
         $pdo = connect();

@@ -36,7 +36,6 @@
                 max="<?php date('Y-m-d')?>"
                 required>
                 <small class="form-text error text-danger"><?= $error['birthdate'] ?? '' ?></small>
-
             </div>
             <!-- ========== PHONE ========== -->
             <div class="mb-3">

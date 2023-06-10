@@ -40,6 +40,12 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" href="/index.php/?action=exercice4">Exercice 4 : Modifier </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="/index.php/?action=exercice5">Exercice 5 : Rendez-vous </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="/index.php/?action=exercice7">Exercice 7 : Modifier Rendez-vous </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
