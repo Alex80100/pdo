@@ -28,10 +28,19 @@ main{
     color: red;
 }
 
-a{
+.txtTr{
     color: white;
-    text-decoration: none;
 }
+
+.link{
+    color: yellow;
+}
+
+.linkModify{
+    color: rgb(3, 86, 31);
+}
+
+
 
 .red{
     color: red;
@@ -39,7 +48,7 @@ a{
 }
 
 .green{
-    color: green;
+    color: rgb(21, 255, 21);
     font-weight: 700;
 }
 
@@ -48,9 +57,6 @@ a{
     height: 20%;
 }
 
-.txtTr{
-    color: white;
-}
 
 .divBtn{
     width: 70%;

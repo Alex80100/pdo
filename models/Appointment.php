@@ -52,16 +52,20 @@ class Appointment
         }
 
     // 'SET' ET 'GET' DE idPatients
-    public function setIdPatients(string $idPatients): void
+    public function setIdPatients(int $idPatients): void
     {
         $this->idPatients = $idPatients;
     }
 
-    public function getIdPatients(): string
+    public function getIdPatients(): int
     {
         return $this->idPatients;
     }
 
+    /**
+     * Permet d'ajouter un rendez-vous en BDD
+     * @return [type]
+     */
     public function add(){
         $pdo = connect();
         $sqlQuery = 'INSERT INTO `appointments` (dateHour, idPatients)
@@ -72,9 +76,18 @@ class Appointment
         $sth->execute();
     }
 
-    public static function getAll(){
+    /**
+     * @return array
+     * Retourne tout les rendez-vous présent dans la BDD 
+     */
+
+    public static function getAll() : array
+    {
         $pdo = connect();
-        $sqlQuery = 'SELECT appointments.dateHour, appointments.id, patients.lastname, patients.firstname
+        $sqlQuery = 'SELECT appointments.dateHour,
+        appointments.id AS idAppointments, 
+        patients.lastname, 
+        patients.firstname
         FROM `appointments`
         INNER JOIN `patients`
         ON appointments.idPatients=patients.id;';
@@ -82,22 +95,50 @@ class Appointment
         $appointmentsList = $sth->fetchAll();
         return $appointmentsList;
     }
-    // int $id
-    public static function get(int $id){
+
+    /**
+     * @param int $id
+     * Retourne un rendez-vous d'un patient 
+     * @return [type]
+     */
+
+    public static function get(int $id) : mixed
+    {
         $pdo = connect();
-        $sqlQuery = 'SELECT appointments.dateHour, appointments.id, patients.lastname, patients.firstname
+        $sqlQuery = 'SELECT appointments.dateHour,
+        appointments.id,
+        patients.lastname, 
+        patients.firstname
         FROM `appointments`
         INNER JOIN `patients`
         ON `appointments`.`idPatients`=`patients`.`id`
         WHERE `appointments`.`id` = :id ;';
         $sth = $pdo->prepare($sqlQuery);
-        $sth->bindValue('id',$id);
+        $sth->bindValue('id',$id, PDO::PARAM_INT);
         $sth->execute();
         $appointment = $sth->fetch();
-        // var_dump($appointment);
         return $appointment;
-        
-    }
-    // 'SELECT * FROM `appointments` 
-    //     LEFT JOIN `patients` ON `appointments`.`idPatients` = `patients`.`id`;'
+        }
+
+        /**
+         * Permet de modifier le rendez-vous d'un patient 
+         * @return [type]
+         */
+
+        public function modify() : mixed
+        {
+            $pdo = connect();
+            $sqlQuery = 'UPDATE appointments
+            SET appointments.dateHour = :dateHour,
+            appointments.idPatients = :idPatients
+            WHERE appointments.id = :id;';
+            $sth = $pdo->prepare($sqlQuery);
+            $sth->bindValue(':id',$this->id, PDO::PARAM_INT);
+            $sth->bindValue(':dateHour',$this->dateAppointment);
+            $sth->bindValue(':idPatients',$this->idPatients);
+            $sth->execute();
+            $appointment = $sth->fetch();
+            return $appointment;
+
+}
 }

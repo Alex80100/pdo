@@ -1,4 +1,3 @@
-
 <div class="container emp-profile">
     <form method="post">
         <div class="row">
@@ -10,10 +9,10 @@
             <div class="col-md-6">
                 <div class="profile-head">
                     <h5>
-                    <?= $patient->getLastname().' ' .$patient->getFirstname() ?> <!-- // -->
+                        <?= $patient->getLastname() . ' ' . $patient->getFirstname() ?> <!-- // -->
                     </h5>
                     <h6>
-                    <?='Patient n° ' .$patient->getId()?> <!-- // -->
+                        <?= 'Patient n° ' . $patient->getId() ?> <!-- // -->
                     </h6>
                     <p class="proile-rating">RANKINGS : <span>8/10</span></p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -37,7 +36,7 @@
                                 <label>Nom</label>
                             </div>
                             <div class="col-md-6">
-                            <p><?=$patient->getLastname()?></p> <!-- // -->
+                                <p><?= $patient->getLastname() ?></p> <!-- // -->
                             </div>
                         </div>
                         <div class="row">
@@ -45,7 +44,7 @@
                                 <label>Prénom</label>
                             </div>
                             <div class="col-md-6">
-                            <p><?=$patient->getFirstname()?></p> <!-- // -->
+                                <p><?= $patient->getFirstname() ?></p> <!-- // -->
                             </div>
                         </div>
                         <div class="row">
@@ -53,7 +52,7 @@
                                 <label>Mail</label>
                             </div>
                             <div class="col-md-6">
-                            <p><?=$patient->getMail()?></p> <!-- // -->
+                                <p><?= $patient->getMail() ?></p> <!-- // -->
                             </div>
                         </div>
                         <div class="row">
@@ -61,7 +60,16 @@
                                 <label>Téléphone</label>
                             </div>
                             <div class="col-md-6">
-                            <p><?=$patient->getPhone()?></p>
+                                <p><?= $patient->getPhone() ?></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <?php foreach ($appointments as $appointment) { ?>
+                                    <label>Rendez-vous </label>
+                                    <p><?= $appointment->dateHour ?></p>
+                                <?php } ?>
+
                             </div>
                         </div>
                     </div>

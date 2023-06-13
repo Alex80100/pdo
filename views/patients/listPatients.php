@@ -18,18 +18,18 @@
 
             <?php foreach ($displayPatients as $displayPatient) { ?>
                 <tr>
-                <td> <?= '<p class="txtTr">'?><a href="/controllers/profilPatientCtrl.php?id=<?=$displayPatient->id ?>"><?=$displayPatient->lastname ?></a></p></th>
+                <td> <?= '<p>'?><a class="link" href="/controllers/profilPatientCtrl.php?id=<?=$displayPatient->id ?>"><?=$displayPatient->lastname ?></a></p></th>
                     <td> <?= '<p class="txtTr">'. $displayPatient->firstname .'</p>' ?> </td>
                     <td> <?= '<p class="txtTr">'. $displayPatient->birthdate .'</p>' ?> </td>
-                    <td> <?= '<p class="txtTr">'?><a href="mailto:<?=$displayPatient->phone ?>"><?=$displayPatient->phone ?></a></p></th>
-                    <td> <?= '<p class="txtTr">'?><a href="mailto:<?=$displayPatient->mail ?>"><?=$displayPatient->mail ?></a></p></th>
-                    <td> <?= '<p class="txtTr">'?><a href="/controllers/modifyCtrl.php?id=<?=$displayPatient->id ?>">Modifier</a></p></th>
+                    <td> <?= '<p>'?><a class="link" href="mailto:<?=$displayPatient->phone ?>"><?=$displayPatient->phone ?></a></p></th>
+                    <td> <?= '<p>'?><a class="link" href="mailto:<?=$displayPatient->mail ?>"><?=$displayPatient->mail ?></a></p></th>
+                    <td> <?= '<p">'?><a class="linkModify" href="/controllers/modifyCtrl.php?id=<?=$displayPatient->id ?>">Modifier</a></p></th>
                 </tr>
             <?php } ?>
         </tbody>
     </table>
     <div class="d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary border-0 bg-success col-6"><a href="/index.php/?action=add">Créer un patient</a></button>
+        <button type="submit" class="btn btn-primary border-0 bg-success col-6 "><a class="text-decoration-none text-light" href="/index.php/?action=add">Créer un patient</a></button>
     </div>
     
 </div>

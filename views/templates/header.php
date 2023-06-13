@@ -11,7 +11,7 @@
     <title>PDO</title>
 </head>
 
-<body>
+<body class="vh-100">
 
     <header>
         <div class="row">
@@ -29,22 +29,22 @@
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="/index.php/?action=add">Exercice 1 : Formulaire Inscription</a>
+                                    <a class="nav-link active" aria-current="page" href="/index.php/?action=add">Ajouter un patient </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="/index.php/?action=exercice2">Exercice 2 : list Patients</a>
+                                    <a class="nav-link active" href="/index.php/?action=exercice2">Liste des Patients</a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a class="nav-link active" href="/index.php/?action=exercice3">Exercice 3 : Profil Patient</a>
-                                </li>
-                                <li class="nav-item">
+                                </li> -->
+                                <!-- <li class="nav-item">
                                     <a class="nav-link active" href="/index.php/?action=exercice4">Exercice 4 : Modifier </a>
+                                </li> -->
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="/index.php/?action=exercice5">Rendez-vous </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="/index.php/?action=exercice5">Exercice 5 : Rendez-vous </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="/index.php/?action=exercice7">Exercice 7 : Modifier Rendez-vous </a>
+                                    <a class="nav-link active" href="/index.php/?action=exercice6">Liste des Rendez-vous </a>
                                 </li>
                             </ul>
                         </div>

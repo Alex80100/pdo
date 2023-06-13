@@ -47,11 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $isOk = filter_var($patient, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . $regex['regexName'] . '/']]);
         }
         
-        $toto = ($date .' '. $time);
+        $dateHour = ($date .' '. $time);
 
     if (empty($error)) {
         $appointment = new Appointment();
-        $appointment->setDateAppointment($toto);
+        $appointment->setDateAppointment($dateHour);
         $appointment->setIdPatients($patient);
         $appointment->add();
     }

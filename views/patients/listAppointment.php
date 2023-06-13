@@ -8,22 +8,22 @@
             <tr>
                 <td><p class="txtTr"> Date & Heure </p></td>
                 <td><p class="txtTr"> Patients </p></td>
-                <!-- <td><p class="txtTr"> Modification </p></td> -->
+                <td><p class="txtTr"> Modification </p></td>
             </tr>
         </thead>
         <tbody>
 
-            <?php foreach ($appointmentList as $appointment) { ?>
+            <?php foreach ($appointmentList as $appointment) {?>
                 <tr>
                     <td> <?= '<p class="txtTr">'. $appointment->dateHour .'</p>' ?> </td>
                     <td> <?= '<p class="txtTr">'. $appointment->lastname.' ' .$appointment->firstname. '</p>' ?> </td>
-                    <td> <?= '<p class="txtTr">'?><a href="/controllers/modifyAppointmentCtrl.php?id=<?=$appointment->id ?>">Modifier</a></p></th>
+                    <td> <?= '<p class="txtTr">'?><a  class="linkModify" href="/controllers/modifyAppointmentCtrl.php?id=<?=$appointment->idAppointments ?>">Modifier</a></p></th>
                 </tr>
             <?php } ?>
 
         </tbody>
     </table>
     <div class="d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary border-0 bg-success col-6"><a href="/index.php/?action=exercice5">Ajouter un Rendez-vous</a></button>
+        <button type="submit" class="btn btn-primary border-0 bg-success col-6"><a class="text-decoration-none text-light" href="/index.php/?action=exercice5">Ajouter un Rendez-vous</a></button>
     </div>
 </div>

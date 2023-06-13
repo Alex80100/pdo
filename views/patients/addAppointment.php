@@ -39,7 +39,7 @@
             <div class="divContainerBtn d-flex justify-content-center align-items-center">
                 <div class="divBtn d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary border-0 bg-success col-5 me-5">ENVOYER</button>
-                    <button type="button" class="btn btn-primary border-0 bg-info-emphasis col-5 me-5"><a href="/index.php/?action=exercice6">Liste des rendez-vous</button>
+                    <button type="button" class="btn btn-primary border-0 bg-info-emphasis col-5 me-5"><a class="text-decoration-none text-light" href="/index.php/?action=exercice6">Liste des rendez-vous</button>
                 </div>
             </div>
         </form>

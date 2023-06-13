@@ -1,6 +1,4 @@
-<?php 
-// var_dump($patient->modify());
-?>
+
 <div class="container div-form">
     <div class="row">
         <div class="d-flex justify-content-center text-primary-emphasis ">
@@ -70,9 +68,10 @@
                 <?= $patientExist ?? '' ?> <!-- Phrase confirmation si le patient existe ou non  -->
             </div>
             <div class="divContainerBtn d-flex justify-content-center align-items-center">
-                <div class="divBtn d-flex justify-content-center"><button type="button" class="btn btn-primary border-0 bg-primary-emphasis col-11"><a href="/index.php/?action=exercice2">Liste des patients</a></button></div>
-                <div class="divBtn d-flex justify-content-center"><button type="submit" class="btn btn-primary border-0 bg-success col-11 me-5">ENVOYER</button></div>
+                <div class="divBtn d-flex justify-content-center"><button type="button" class="btn btn-primary border-0 bg-primary-emphasis col-11 "><a class="text-decoration-none text-light" href="/index.php/?action=exercice2">Liste des patients</a></button></div>
+                <div class="divBtn d-flex justify-content-center"><button type="submit" class="btn btn-primary border-0 bg-success col-11 me-5">MODIFIER</button></div>
                 <?= $patientModify ?? '' ?>
+                
             </div>
         </form>
     </div>

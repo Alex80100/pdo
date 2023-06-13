@@ -99,6 +99,10 @@ class Patient
     }
 // Ajouter le patient a la base de données. 
 
+    /**
+     * Permet d'ajouter un nouveau patient en BDD
+     * @return [type]
+     */
     public function add (){
         $pdo = connect();
         $sqlQuery = 'INSERT INTO `patients` (lastname, firstname, birthdate, phone, mail)
@@ -112,8 +116,11 @@ class Patient
         $sth->execute();
     }
 
-    // Verifier si un patient est déjà en base avec le mail 
     
+    /**
+     *  Verifie si un patient est déjà en base avec le mail 
+     * @return [type]
+     */
     public function patientExist()
     {
         $pdo = connect();
@@ -136,7 +143,11 @@ class Patient
         }
     }
 
-// Afficher les clients en BDD 
+    
+    /**
+     *  Affiche tous les clients en BDD 
+     * @return [type]
+     */
 
     public static function patientsDisplay(){
         $pdo = connect();
@@ -146,21 +157,31 @@ class Patient
         return $displayPatients;
     }
 
-// Afficher un profil client 
+
+    /**
+     * @param int $id
+     *  Affiche un profil client 
+     * @return [type]
+     */
+
     public static function get(int $id){
         $pdo = connect();
-        $sqlQuery = 'SELECT `id`, `lastname`, `firstname`, `birthdate`, `phone`, `mail` FROM `patients`
+        $sqlQuery = 'SELECT `id`, `lastname`, `firstname`, `birthdate`, `phone`, `mail` 
+        FROM `patients`
         WHERE id = :id ;';
         $sth = $pdo->prepare($sqlQuery);
-        $sth->bindValue(':id',$id);
+        $sth->bindValue(':id',$id, PDO::PARAM_INT);
         $sth->setFetchMode(PDO::FETCH_CLASS,"Patient");
         $sth->execute();
         $displayProfil = $sth->fetch();
         return $displayProfil;
     }
-
-    // Modifier profil 
     
+    /**
+     *  Permet de modifier le profil d'un patient 
+     * @return bool
+     */
+
     public function modify() : bool 
     {
         $pdo = connect();
@@ -173,7 +194,7 @@ class Patient
         `mail` = :mail 
         WHERE id = :id;';
         $sth = $pdo->prepare($sql);
-        $sth->bindValue(':id',$this->id);
+        $sth->bindValue(':id',$this->id, PDO::PARAM_INT);
         $sth->bindValue(':lastname',$this->lastname);
         $sth->bindValue(':firstname',$this->firstname);
         $sth->bindValue(':birthdate',$this->birthdate);
@@ -184,5 +205,17 @@ class Patient
         return $modifyPatient; 
     }
 
-
+    public static function getAppointment(int $id){
+        $pdo = connect();
+        $sqlQuery = 'SELECT `lastname`,`firstname`,`appointments`.`dateHour` 
+        FROM `patients` 
+        INNER JOIN `appointments` 
+        ON `patients`.`id` = `appointments`.`idPatients`        
+        WHERE `patients`.`id` = :id;';
+        $sth = $pdo->prepare($sqlQuery);
+        $sth->bindValue(':id', $id, PDO::PARAM_INT);
+        $sth->execute();
+        $displayProfil = $sth->fetchAll();
+        return $displayProfil;
+    }
 }
