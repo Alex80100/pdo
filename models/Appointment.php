@@ -39,17 +39,17 @@ class Appointment
         return $this->dateAppointment;
     }
 
-        // 'SET' ET 'GET' DE dateHour
-        public function setTimeAppointment(string $timeAppointment): void
-        {
-            $this->timeAppointment = $timeAppointment;
-        }
-    
-    
-        public function getTime(): string
-        {
-            return $this->timeAppointment;
-        }
+    // 'SET' ET 'GET' DE dateHour
+    public function setTimeAppointment(string $timeAppointment): void
+    {
+        $this->timeAppointment = $timeAppointment;
+    }
+
+
+    public function getTime(): string
+    {
+        return $this->timeAppointment;
+    }
 
     // 'SET' ET 'GET' DE idPatients
     public function setIdPatients(int $idPatients): void
@@ -66,13 +66,14 @@ class Appointment
      * Permet d'ajouter un rendez-vous en BDD
      * @return [type]
      */
-    public function add(){
+    public function add()
+    {
         $pdo = connect();
         $sqlQuery = 'INSERT INTO `appointments` (dateHour, idPatients)
         VALUES (:dateAppointment, :idPatients);';
         $sth = $pdo->prepare($sqlQuery);
-        $sth->bindValue(':dateAppointment',$this->dateAppointment);
-        $sth->bindValue(':idPatients',$this->idPatients);
+        $sth->bindValue(':dateAppointment', $this->dateAppointment);
+        $sth->bindValue(':idPatients', $this->idPatients);
         $sth->execute();
     }
 
@@ -81,7 +82,7 @@ class Appointment
      * Retourne tout les rendez-vous présent dans la BDD 
      */
 
-    public static function getAll() : array
+    public static function getAll(): array|false
     {
         $pdo = connect();
         $sqlQuery = 'SELECT appointments.dateHour,
@@ -102,7 +103,7 @@ class Appointment
      * @return [type]
      */
 
-    public static function get(int $id) : mixed
+    public static function get(int $id): mixed
     {
         $pdo = connect();
         $sqlQuery = 'SELECT appointments.dateHour,
@@ -114,31 +115,41 @@ class Appointment
         ON `appointments`.`idPatients`=`patients`.`id`
         WHERE `appointments`.`id` = :id ;';
         $sth = $pdo->prepare($sqlQuery);
-        $sth->bindValue('id',$id, PDO::PARAM_INT);
+        $sth->bindValue('id', $id, PDO::PARAM_INT);
         $sth->execute();
         $appointment = $sth->fetch();
         return $appointment;
-        }
+    }
 
-        /**
-         * Permet de modifier le rendez-vous d'un patient 
-         * @return [type]
-         */
+    /**
+     * Permet de modifier le rendez-vous d'un patient 
+     * @return [type]
+     */
 
-        public function modify() : mixed
-        {
-            $pdo = connect();
-            $sqlQuery = 'UPDATE appointments
+    public function modify(): mixed
+    {
+        $pdo = connect();
+        $sqlQuery = 'UPDATE appointments
             SET appointments.dateHour = :dateHour,
             appointments.idPatients = :idPatients
             WHERE appointments.id = :id;';
-            $sth = $pdo->prepare($sqlQuery);
-            $sth->bindValue(':id',$this->id, PDO::PARAM_INT);
-            $sth->bindValue(':dateHour',$this->dateAppointment);
-            $sth->bindValue(':idPatients',$this->idPatients);
-            $sth->execute();
-            $appointment = $sth->fetch();
-            return $appointment;
+        $sth = $pdo->prepare($sqlQuery);
+        $sth->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $sth->bindValue(':dateHour', $this->dateAppointment);
+        $sth->bindValue(':idPatients', $this->idPatients);
+        $sth->execute();
+        $appointment = $sth->fetch();
+        return $appointment;
+    }
 
-}
+    public function delete()
+    {
+        $pdo = connect();
+        $sqlQuery = 'DELETE * FROM `appointment`
+        WHERE `appointments`.`id` = :id;';
+        $sth = $pdo->query($sqlQuery);
+        $sth->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $delete = $sth->execute();
+        return $delete;
+    }
 }

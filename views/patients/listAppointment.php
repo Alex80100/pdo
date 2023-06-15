@@ -9,6 +9,7 @@
                 <td><p class="txtTr"> Date & Heure </p></td>
                 <td><p class="txtTr"> Patients </p></td>
                 <td><p class="txtTr"> Modification </p></td>
+                <td><p class="txtTr"> Suppression </p></td>
             </tr>
         </thead>
         <tbody>
@@ -16,8 +17,9 @@
             <?php foreach ($appointmentList as $appointment) {?>
                 <tr>
                     <td> <?= '<p class="txtTr">'. $appointment->dateHour .'</p>' ?> </td>
-                    <td> <?= '<p class="txtTr">'. $appointment->lastname.' ' .$appointment->firstname. '</p>' ?> </td>
-                    <td> <?= '<p class="txtTr">'?><a  class="linkModify" href="/controllers/modifyAppointmentCtrl.php?id=<?=$appointment->idAppointments ?>">Modifier</a></p></th>
+                    <td> <?= '<p class="txtTr">'. $appointment->lastname. ' ' .$appointment->firstname. '</p>' ?> </td>
+                    <td> <?= '<p class="txtTr">'?><a  class="linkModify" href="/controllers/modifyAppointmentCtrl.php?id=<?=$appointment->idAppointments ?>">MODIFIER</a></p></th>
+                    <td> <?= '<p class="txtTr">'?><a  class="linkDelete" href="/controllers/modifyAppointmentCtrl.php?id=<?=$appointment->idAppointments ?>">SUPPRIMER</a></p></th>
                 </tr>
             <?php } ?>
 

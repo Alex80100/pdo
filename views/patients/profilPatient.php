@@ -69,7 +69,6 @@
                                     <label>Rendez-vous </label>
                                     <p><?= $appointment->dateHour ?></p>
                                 <?php } ?>
-
                             </div>
                         </div>
                     </div>
