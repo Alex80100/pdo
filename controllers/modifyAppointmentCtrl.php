@@ -11,8 +11,8 @@ $appointmentId = intval(filter_input(INPUT_GET,'id',FILTER_SANITIZE_NUMBER_INT))
 
 
 // $toto = new Appointment;
-$appointments = Appointment::get($appointmentId);
 $patients = Patient::patientsDisplay();
+
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -45,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //$error['time'] = "Heure invalide. Veuillez sélectionner une heure entre 09:00 et 18:30.";
         //}
 
-        $idPatient = $_POST['patient'];
         $idPatient = trim(filter_input(INPUT_POST,'patient',FILTER_SANITIZE_NUMBER_INT));
         if (empty($idPatient)) {
             $error['patient'] = 'Vous devez selectionner un patient !';
@@ -53,14 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $isOk = filter_var($idPatient, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/' . $regex['regexName'] . '/']]);
         }
 
-
-
-    // if (empty($error)) {
-    //     $appointment = new Appointment();
-    //     $appointment->setDateAppointment($toto);
-    //     $appointment->setIdPatients($patient);
-    //     $appointment->add();
-    // }
 
 }
 
@@ -71,10 +62,12 @@ if (empty($error)) {
     $appointmentsModify->setId($appointmentId);
     $appointmentsModify->setDateAppointment($dateHour);
     $appointmentsModify->setIdPatients($idPatient);
-    $appointmentsModify = $appointmentsModify->modify();
+    $isUpdated = $appointmentsModify->modify();
 }
 
 }
+
+$appointment = Appointment::get($appointmentId);
 
 
 include __DIR__ . '/../views/templates/header.php';

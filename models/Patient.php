@@ -100,8 +100,8 @@ class Patient
 // Ajouter le patient a la base de données. 
 
     /**
-     * Permet d'ajouter un nouveau patient en BDD
      * @return [type]
+     *  Permet d'ajouter un nouveau patient en BDD
      */
     public function add (){
         $pdo = connect();
@@ -148,7 +148,6 @@ class Patient
      *  Affiche tous les clients en BDD 
      * @return [type]
      */
-
     public static function patientsDisplay(){
         $pdo = connect();
         $sqlQuery = 'SELECT * FROM `patients`;';
@@ -163,7 +162,6 @@ class Patient
      *  Affiche un profil client 
      * @return [type]
      */
-
     public static function get(int $id){
         $pdo = connect();
         $sqlQuery = 'SELECT `id`, `lastname`, `firstname`, `birthdate`, `phone`, `mail` 
@@ -181,7 +179,6 @@ class Patient
      *  Permet de modifier le profil d'un patient 
      * @return bool
      */
-
     public function modify() : bool 
     {
         $pdo = connect();
@@ -205,7 +202,13 @@ class Patient
         return $modifyPatient; 
     }
 
-    public static function getAppointment(int $id){
+    /**
+     * @param int $id
+     *  Permet d'obtenir le ou les rdv d'un patient
+     * @return [type]
+     */
+    public static function getAppointment(int $id) : mixed
+    { 
         $pdo = connect();
         $sqlQuery = 'SELECT `lastname`,`firstname`,`appointments`.`dateHour` 
         FROM `patients` 
@@ -217,5 +220,20 @@ class Patient
         $sth->execute();
         $displayProfil = $sth->fetchAll();
         return $displayProfil;
+    }
+
+    /**
+     * @param mixed $id
+     *  Permet de supprimer un patient et ses rendez-vous. 
+     * @return [type]
+     */
+    public static function delete($id) 
+    {
+        $pdo = connect();
+        $sqlQuery = 'DELETE FROM `patients`
+        WHERE `patients`.`id` = :id;';
+        $sth = $pdo->prepare($sqlQuery);
+        $sth->bindValue(':id',$id,PDO::PARAM_INT);
+        return $sth->execute();
     }
 }

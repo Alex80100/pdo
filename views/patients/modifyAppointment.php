@@ -7,9 +7,15 @@
             <div class="mb-3">
                 <label for="patient">Choisir un patient</label>
                 <select name="patient" id="patient">
-                <option value="<?= $appointments->id ?>"><?= $appointments->lastname. ' ' .$appointments->firstname ?></option>
-                    <?php foreach ($patients as $patient) { ?>
-                        <option value="<?=$patient->id ?>"><?= $patient->lastname. ' ' .$patient->firstname ?></option>
+                    <?php foreach ($patients as $patient) { 
+                        // if ($patient->id == $appointment->id) {
+                        //     $isSelected = 'selected';
+                        // } else {
+                        //     $isSelected = '';
+                        // } 
+                        $isSelected = ($patient->id == $appointment->idPatients) ? 'selected' : '';
+                        ?>
+                        <option <?= $isSelected ?> value="<?=$patient->id ?>"><?= $patient->lastname. ' ' .$patient->firstname ?></option>
                     <?php } ?>
                     </option>
                 </select>
@@ -21,7 +27,7 @@
                 class="form-control" 
                 name="date" 
                 min="<?php date('Y-m-d') ?>"
-                value="<?=  date("Y-m-d",strtotime($appointments->dateHour)) ?>"
+                value="<?=  date("Y-m-d",strtotime($appointment->dateHour)) ?>"
                 max="2030-01-01" 
                 required>
             </div>
@@ -34,7 +40,7 @@
                 name="time" 
                 min="08:00" 
                 max="18:30" 
-                value="<?=  date("h:i",strtotime($appointments->dateHour)) ?>"
+                value="<?=  date("H:i",strtotime($appointment->dateHour)) ?>"
                 required>
             </div>
             <small><?= $error['time'] ?? '' ?></small>

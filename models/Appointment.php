@@ -108,6 +108,7 @@ class Appointment
         $pdo = connect();
         $sqlQuery = 'SELECT appointments.dateHour,
         appointments.id,
+        `appointments`.`idPatients`,
         patients.lastname, 
         patients.firstname
         FROM `appointments`
@@ -115,7 +116,7 @@ class Appointment
         ON `appointments`.`idPatients`=`patients`.`id`
         WHERE `appointments`.`id` = :id ;';
         $sth = $pdo->prepare($sqlQuery);
-        $sth->bindValue('id', $id, PDO::PARAM_INT);
+        $sth->bindValue(':id', $id, PDO::PARAM_INT);
         $sth->execute();
         $appointment = $sth->fetch();
         return $appointment;
@@ -136,20 +137,25 @@ class Appointment
         $sth = $pdo->prepare($sqlQuery);
         $sth->bindValue(':id', $this->id, PDO::PARAM_INT);
         $sth->bindValue(':dateHour', $this->dateAppointment);
-        $sth->bindValue(':idPatients', $this->idPatients);
-        $sth->execute();
-        $appointment = $sth->fetch();
+        $sth->bindValue(':idPatients', $this->idPatients, PDO::PARAM_INT);
+        $appointment = $sth->execute();
         return $appointment;
     }
 
-    public function delete()
+
+    /**
+     * @param mixed $id
+     *  Permet la suppression d'un rendez-vous 
+     * @return [type]
+     */
+    public static function delete($id) : bool
     {
         $pdo = connect();
-        $sqlQuery = 'DELETE * FROM `appointment`
+        $sqlQuery = 'DELETE FROM `appointments`
         WHERE `appointments`.`id` = :id;';
-        $sth = $pdo->query($sqlQuery);
-        $sth->bindValue(':id', $this->id, PDO::PARAM_INT);
-        $delete = $sth->execute();
-        return $delete;
+        $sth = $pdo->prepare($sqlQuery);
+        $sth->bindValue(':id',$id, PDO::PARAM_INT);
+        return $sth->execute();
+
     }
 }
