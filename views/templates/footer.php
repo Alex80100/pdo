@@ -1,6 +1,6 @@
 </main>
 <div class="container-fluid my-5 m-0 p-0">
-    <section class="">
+    <section>
         <!-- Footer -->
         <footer class="text-center text-white m-0" style="background-color: #0a4275;">
             <!-- Grid container -->

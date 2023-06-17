@@ -1,8 +1,9 @@
 <div class="container">
 
-    <div class="input-group d-flex justify-content-end">
-        <form class="d-flex col-4" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <div class="mt-4 input-group d-flex justify-content-end ">
+        <!-- Bar de recherche -->
+        <form class="d-flex col-4" role="search" method="POST">
+            <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-success" type="submit">Recherche</button>
         </form>
     </div>

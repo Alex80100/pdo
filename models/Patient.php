@@ -97,26 +97,27 @@ class Patient
     {
         return $this->mail;
     }
-// Ajouter le patient a la base de données. 
+    // Ajouter le patient a la base de données. 
 
     /**
      * @return [type]
      *  Permet d'ajouter un nouveau patient en BDD
      */
-    public function add (){
+    public function add()
+    {
         $pdo = connect();
         $sqlQuery = 'INSERT INTO `patients` (lastname, firstname, birthdate, phone, mail)
         VALUES (:lastname,:firstname,:birthdate,:phone,:mail);';
         $sth = $pdo->prepare($sqlQuery);
-        $sth->bindValue(':lastname',$this->lastname);
-        $sth->bindValue(':firstname',$this->firstname);
-        $sth->bindValue(':birthdate',$this->birthdate);
-        $sth->bindValue(':phone',$this->phone);
-        $sth->bindValue(':mail',$this->mail);
+        $sth->bindValue(':lastname', $this->lastname);
+        $sth->bindValue(':firstname', $this->firstname);
+        $sth->bindValue(':birthdate', $this->birthdate);
+        $sth->bindValue(':phone', $this->phone);
+        $sth->bindValue(':mail', $this->mail);
         $sth->execute();
     }
 
-    
+
     /**
      *  Verifie si un patient est déjà en base avec le mail 
      * @return [type]
@@ -134,7 +135,7 @@ class Patient
 
         $sth->execute();
         $exist = $sth->fetchAll();
-        $exist=count($exist);
+        $exist = count($exist);
 
         if ($exist == 0) {
             return TRUE;
@@ -143,15 +144,38 @@ class Patient
         }
     }
 
-    
+
     /**
-     *  Affiche tous les clients en BDD 
-     * @return [type]
+     *  Affiche tous les clients en BDD,
+     *  Recherche dans la BDD,
+     *  Affiche la pagination.
+     *  @return [type]
      */
-    public static function patientsDisplay(){
+    public static function getAll($search = null, $limit = 10, $offset = 0)
+    {
         $pdo = connect();
-        $sqlQuery = 'SELECT * FROM `patients`;';
-        $sth = $pdo->query($sqlQuery);
+        $sqlQuery = 'SELECT * FROM `patients` ';
+        /* Condition pour effectuer la recherche dans la liste de patient */
+        if (empty($search)) {
+            $sqlQuery .= 'LIMIT :limit OFFSET :offset ;';
+        }
+        if (!empty($search)) {
+            $sqlQuery .= 'WHERE `patients`.`firstname` LIKE :search OR `patients`.`lastname` LIKE :search LIMIT :limit OFFSET :offset;';
+        }
+// var_dump($sqlQuery);
+// die;
+
+        $sth = $pdo->prepare($sqlQuery);
+        if (empty($search)) {
+            $sth->bindValue(':limit',$limit,PDO::PARAM_INT);
+            $sth->bindValue(':offset',$offset,PDO::PARAM_INT);
+        }
+        if (!empty($search)) {
+            $sth->bindValue(':search', '%' .$search. '%');
+            $sth->bindValue(':limit',$limit,PDO::PARAM_INT);
+            $sth->bindValue(':offset',$offset,PDO::PARAM_INT);
+        }
+        $sth->execute();
         $displayPatients = $sth->fetchAll();
         return $displayPatients;
     }
@@ -162,24 +186,25 @@ class Patient
      *  Affiche un profil client 
      * @return [type]
      */
-    public static function get(int $id){
+    public static function get(int $id)
+    {
         $pdo = connect();
         $sqlQuery = 'SELECT `id`, `lastname`, `firstname`, `birthdate`, `phone`, `mail` 
         FROM `patients`
         WHERE id = :id ;';
         $sth = $pdo->prepare($sqlQuery);
-        $sth->bindValue(':id',$id, PDO::PARAM_INT);
-        $sth->setFetchMode(PDO::FETCH_CLASS,"Patient");
+        $sth->bindValue(':id', $id, PDO::PARAM_INT);
+        $sth->setFetchMode(PDO::FETCH_CLASS, "Patient");
         $sth->execute();
         $displayProfil = $sth->fetch();
         return $displayProfil;
     }
-    
+
     /**
      *  Permet de modifier le profil d'un patient 
      * @return bool
      */
-    public function modify() : bool 
+    public function modify(): bool
     {
         $pdo = connect();
         $sql = 'UPDATE `patients` 
@@ -191,15 +216,15 @@ class Patient
         `mail` = :mail 
         WHERE id = :id;';
         $sth = $pdo->prepare($sql);
-        $sth->bindValue(':id',$this->id, PDO::PARAM_INT);
-        $sth->bindValue(':lastname',$this->lastname);
-        $sth->bindValue(':firstname',$this->firstname);
-        $sth->bindValue(':birthdate',$this->birthdate);
-        $sth->bindValue(':mail',$this->mail);
-        $sth->bindValue(':phone',$this->phone);
+        $sth->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $sth->bindValue(':lastname', $this->lastname);
+        $sth->bindValue(':firstname', $this->firstname);
+        $sth->bindValue(':birthdate', $this->birthdate);
+        $sth->bindValue(':mail', $this->mail);
+        $sth->bindValue(':phone', $this->phone);
         $sth->execute();
         $modifyPatient = $sth->fetch();
-        return $modifyPatient; 
+        return $modifyPatient;
     }
 
     /**
@@ -207,8 +232,8 @@ class Patient
      *  Permet d'obtenir le ou les rdv d'un patient
      * @return [type]
      */
-    public static function getAppointment(int $id) : mixed
-    { 
+    public static function getAppointment(int $id): mixed
+    {
         $pdo = connect();
         $sqlQuery = 'SELECT `lastname`,`firstname`,`appointments`.`dateHour` 
         FROM `patients` 
@@ -227,13 +252,13 @@ class Patient
      *  Permet de supprimer un patient et ses rendez-vous. 
      * @return [type]
      */
-    public static function delete($id) 
+    public static function delete($id)
     {
         $pdo = connect();
         $sqlQuery = 'DELETE FROM `patients`
         WHERE `patients`.`id` = :id;';
         $sth = $pdo->prepare($sqlQuery);
-        $sth->bindValue(':id',$id,PDO::PARAM_INT);
+        $sth->bindValue(':id', $id, PDO::PARAM_INT);
         return $sth->execute();
     }
 }

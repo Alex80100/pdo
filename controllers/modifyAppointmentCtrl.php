@@ -11,7 +11,7 @@ $appointmentId = intval(filter_input(INPUT_GET,'id',FILTER_SANITIZE_NUMBER_INT))
 
 
 // $toto = new Appointment;
-$patients = Patient::patientsDisplay();
+$patients = Patient::getAll();
 
 
 

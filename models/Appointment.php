@@ -148,14 +148,19 @@ class Appointment
      *  Permet la suppression d'un rendez-vous 
      * @return [type]
      */
-    public static function delete($id) : bool
+    public static function delete($id)
     {
         $pdo = connect();
         $sqlQuery = 'DELETE FROM `appointments`
         WHERE `appointments`.`id` = :id;';
         $sth = $pdo->prepare($sqlQuery);
         $sth->bindValue(':id',$id, PDO::PARAM_INT);
-        return $sth->execute();
-
+        $sth->execute();
+        if ($sth->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+        // return $sth->rowCount()
     }
 }
